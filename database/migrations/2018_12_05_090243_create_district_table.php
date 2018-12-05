@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCityTable extends Migration
+class CreateDistrictTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,20 @@ class CreateCityTable extends Migration
      */
     public function up()
     {
-        Schema::create('city', function (Blueprint $table) {
+        Schema::create('district', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('name', 20);
-            $table->string('city_code');
+            $table->string('name', 30);
+            $table->integer('city_id');
             $table->timestamp('c_date')->useCurrent();
             $table->timestamp('m_date')->useCurrent();
+
+            /*
+             * Add foreign
+             */
+            $table->foreign('city_id')->references('id')->on('city');
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -29,6 +35,6 @@ class CreateCityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('city');
+        Schema::dropIfExists('district');
     }
 }
